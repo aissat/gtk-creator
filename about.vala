@@ -17,6 +17,7 @@ class About : Gtk.AboutDialog {
 		this.version = ClassMain.version;
 		
 		this.logo = ClassMain.logo;
+		this.website = "https://github.com/handicraftsman/gtk-creator";
 		
 		this.license = License.license;
 		this.wrap_license = true;
