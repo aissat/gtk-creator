@@ -65,6 +65,7 @@ class ValaDoc : Gtk.Box {
 				});
 			
 		webview = new WebKit.WebView();
+		webview.zoom_level += 0.05;
 		mainbox.pack_start(webview);
 		
 		webview.load_uri("http://valadoc.org");
