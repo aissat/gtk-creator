@@ -24,3 +24,6 @@ Just run this from linux
 $ make
 $ sudo make install
 ````
+
+# Run
+Just run `gtkcreator`
