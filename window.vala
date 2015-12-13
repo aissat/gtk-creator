@@ -60,7 +60,9 @@ class WWindow : Gtk.Window {
 		var boxGlade = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
 		modeStack.add_titled(boxGlade, "UI Designer", "UI Designer");
 		
-			//place for builtin glade
+			//builtin UI editor
+			var uiedit = new UIEditWidget();
+			boxGlade.pack_start(uiedit);
 		
 		var boxDoc = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 		modeStack.add_titled(boxDoc, "Documentation", "Documentation");
