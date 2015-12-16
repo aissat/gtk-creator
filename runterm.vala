@@ -21,23 +21,23 @@ class RunTerm : Gtk.Window {
 		topbar.show_close_button = true; //
 		this.set_titlebar(topbar); //Configure header bar
 		
-		shell = cmd;
-		term.set_emulation("xterm");
-		term.set_encoding("UTF-8");
-		
 		try {
 			pty = new Vte.Pty(Vte.PtyFlags.DEFAULT);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);
 		}
-		term.pty_object = pty;
 		
 		scroll = new Gtk.ScrolledWindow(null, null);
 		scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 		this.add(scroll);
 		term = new Vte.Terminal();
 		scroll.add(term);
+		
+		shell = cmd;
+		term.set_emulation("xterm");
+		term.set_encoding("UTF-8");
+		term.pty_object = pty;
 		
 		try {
 			term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
