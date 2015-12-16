@@ -19,6 +19,9 @@ class ClassMain : GLib.Object {
 		if(args[1] == "-t"){
 			var runTerm = new RunTerm(800, 600, args[2]);
 			runTerm.show_all();
+		} else if(args[1] == "-g"){
+			var gitManager = new GitManager(800, 600);
+			gitManager.show_all();
 		} else {
 			mainWindow = new WWindow(1024, 700, args[0]);
 			mainWindow.show_all();
