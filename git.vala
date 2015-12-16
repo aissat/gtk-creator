@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** GUI GIT client **/
+/** GUI GIT client (Work In Progress) **/
 
 using Gtk;
 using Vte;
