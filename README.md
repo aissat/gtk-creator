@@ -1,17 +1,17 @@
 # GTK-creator
-GTK+ Creator - OpenSource IDE for Vala and GTK3
+GTK+ Creator - open-source (free software) IDE for Vala and GTK3
 
-# Features 
-1. Built-in terminal (have some bugs tho)
+# Features:
+1. Built-in terminal (have some bugs)
 2. Documentation viewer
-3. Code Redactor (fractionally)
+3. Code Redactor (NOT FINISHED)
 
-# TODO
-* Fix terminal
-* Finish core redactor
+# TODO:
+* Fix some terminal bugs
+* Finish core editor
 * GUI Redactor
 
-# Dependences
+# Depends on:
 * valac-0.30+
 * gdk-3.0+
 * vte-2.90+
@@ -19,7 +19,7 @@ GTK+ Creator - OpenSource IDE for Vala and GTK3
 * gio-2.0+
 * gtksourceview-3.0+
 
-# Make and install
+# Make and install:
 ````bash
 $ make
 $ sudo make install
