@@ -7,6 +7,7 @@ GTK+ Creator - open-source (free software) IDE for Vala and GTK3
 3. Code Redactor (NOT FINISHED)
 
 # TODO:
+* Finish git-client
 * Fix some terminal bugs
 * Finish core editor
 * GUI Redactor
