@@ -24,6 +24,7 @@ PKG="
 OARGS="
 	--target-glib=2.36
 	-o exec
+	-g
 "
 
 #Script body

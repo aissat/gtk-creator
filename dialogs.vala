@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- /** Just file chooser dialog **/
+ /** Just file class for dialogs **/
  
-/**
+
 using Gtk;
 
 class dialogs {
@@ -50,4 +50,4 @@ class dialogs {
 		return output;
 	}
 }
-**/
+

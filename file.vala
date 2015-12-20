@@ -19,7 +19,7 @@
 /** Just class for Read/Write operations with files **/
 
 /** 
-class ClassFile{
+class ClassFile {
 	public static string read(string filename){
 		var file = File.new_for_path(filename);
 		string output = "";

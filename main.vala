@@ -23,7 +23,7 @@ class ClassMain : GLib.Object {
 	public static string[] arguments;
 	public static Gdk.Pixbuf logo;
 	public const string name = "GTK+ Creator";
-	public const string version = "v0.21dev";
+	public const string version = "dev version";
 	
 	public static int main(string[] args){
 		arguments = args;

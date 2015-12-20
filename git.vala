@@ -54,15 +54,47 @@ class GitManager : Gtk.Window {
 		term.set_encoding("UTF-8");
 		term.pty_object = pty;
 		
+		var firstbtns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 2);
+		mainbox.pack_start(firstbtns, false, false, 0);
+		
+			var getStatusBtn = new Gtk.Button.with_label("Status");
+			firstbtns.pack_start(getStatusBtn);
+			getStatusBtn.clicked.connect(() => {
+				runCmd({"echo", "----- GIT Status"});
+				runCmd({"git", "status"});
+				runCmd({"echo"});
+			});
+			
+			var listFilesBtn = new Gtk.Button.with_label("List");
+			firstbtns.pack_start(listFilesBtn);
+			listFilesBtn.clicked.connect(() => {
+				runCmd({"echo", "----- List of Files"});
+				runCmd({"ls"});
+				runCmd({"echo"});
+			});
+			
+			var addBtn = new Gtk.Button.with_label("Add/Prepare");
+			firstbtns.pack_start(addBtn);
+			addBtn.clicked.connect(() => {
+				runCmd({"echo", "----- GIT Add"});
+				string files = "";
+				var dialog = new GetText("Files to add", "Files to add");
+				dialog.show_all();
+				runCmd({"git", "add", files});
+				runCmd({"echo"});
+			});
+		
 	}
 	
-	public void runCmd(string cmd){
+	public void runCmd(string[] cmd){
 		try {
-			term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", { ("git " + cmd) }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
+			term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", (cmd), null, SpawnFlags.SEARCH_PATH, null, out child_pid);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);
 		}
 	}
+	
+	
 	
 }
