@@ -25,12 +25,12 @@ public class GetText : Gtk.Dialog {
 	public static Gtk.Entry input;
 	public static Gtk.Button submitBtn;
 	
-	public GetText (string ititle, string entrytext) {
+	public GetText (string ititle, string entrytext, string* output) {
 		this.title = ititle;
 		this.icon = ClassMain.logo;
 		this.border_width = 5;
 		
-		Gtk.Box content = get_content_area () as Gtk.Box;
+		Gtk.Box content = get_content_area() as Gtk.Box;
 		
 		mainbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
 		content.pack_start(mainbox, false, false, 0);
@@ -42,6 +42,7 @@ public class GetText : Gtk.Dialog {
 		submitBtn = new Gtk.Button.from_icon_name("dialog-ok", Gtk.IconSize.SMALL_TOOLBAR);
 		submitBtn.clicked.connect(() => {
 			this.close();
+			output = input.text;
 		});
 		mainbox.pack_start(submitBtn, false, false, 2);
 		

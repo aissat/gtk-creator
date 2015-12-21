@@ -77,9 +77,10 @@ class GitManager : Gtk.Window {
 			firstbtns.pack_start(addBtn);
 			addBtn.clicked.connect(() => {
 				runCmd({"echo", "----- GIT Add"});
-				string files = "";
-				var dialog = new GetText("Files to add", "Files to add");
+				string files = "empty\n";
+				var dialog = new GetText("Files to add", "Files to add", files);
 				dialog.show_all();
+				print(files);
 				runCmd({"git", "add", files});
 				runCmd({"echo"});
 			});

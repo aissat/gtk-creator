@@ -40,8 +40,8 @@ class About : Gtk.AboutDialog {
 		this.website = "https://github.com/handicraftsman/gtk-creator";
 		this.website_label = "GitHub repo";
 		
-		this.license = License.license;
-		this.wrap_license = true;
+		this.license_type = Gtk.License.GPL_3_0;
+		this.wrap_license = false;
 		
 		this.response.connect ((response_id) => {
 			if (response_id == Gtk.ResponseType.CANCEL || response_id == Gtk.ResponseType.DELETE_EVENT) {
