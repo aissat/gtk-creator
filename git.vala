@@ -129,7 +129,7 @@ class GitManager : Gtk.Window {
 			secondbtns.pack_start(commitBtn);
 			commitBtn.clicked.connect(() => {
 				string text = opEntry.text;
-				string[] cmd = {"git", "commit", "-m", ("'" + text + "'")};
+				string[] cmd = {"git", "commit", "-m", text};
 				
 				opEntry.text = "";
 				runCmd(cmd);
