@@ -62,6 +62,13 @@ class WWindow : Gtk.Window {
 				aboutDialog.present();
 			});
 		
+		var gitButton = new Gtk.Button.from_icon_name("edit-copy", Gtk.IconSize.SMALL_TOOLBAR);
+			gitButton.clicked.connect(() => {
+				Posix.system(@"$runcommand -g &");
+			});
+		topbar.pack_end(gitButton);
+		
+		
 		var rModeSwitch = new Gtk.Switch();
 		topbar.pack_end(rModeSwitch);
 		

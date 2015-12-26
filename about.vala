@@ -33,7 +33,7 @@ class About : Gtk.AboutDialog {
 		
 		this.program_name = ClassMain.name;
 		this.comments = "GTK+ IDE for Vala language with many features";
-		this.copyright = "Copyright © 2016 Nickolay Ilyushin, TyanNN";
+		this.copyright = "Copyright © 2016 GTK+ Creator authors and designers";
 		this.version = ClassMain.version;
 		
 		this.logo = ClassMain.logo;

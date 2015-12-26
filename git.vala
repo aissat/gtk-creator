@@ -26,6 +26,7 @@ class GitManager : Gtk.Window {
 	public static Vte.Terminal term;
 	public static Vte.Pty pty;
 	public static Gtk.ScrolledWindow scroll;
+	public static Gtk.Entry opEntry;
 	public static Gtk.Box mainbox;
 	
 	public GitManager(int sizex, int sizey){
@@ -41,6 +42,23 @@ class GitManager : Gtk.Window {
 		topbar.show_close_button = true; //
 		this.set_titlebar(topbar); //Configure header bar
 		
+			var initBtn = new Gtk.Button.with_label("Init Repo");
+			topbar.pack_start(initBtn);
+			initBtn.clicked.connect(() => {
+				runCmd({"git", "init"});
+			});
+			
+			var raddBtn = new Gtk.Button.with_label("Add Rem. Repo*");
+			topbar.pack_start(raddBtn);
+			raddBtn.clicked.connect(() => {
+				string rname = ClassMisc.random.to_string();
+				string url = opEntry.text;
+				string[] cmd = {"git", "remote", "add", rname, url};
+				
+				opEntry.text = "";
+				runCmd(cmd);
+			});
+			
 		mainbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 		this.add(mainbox);
 		
@@ -52,37 +70,88 @@ class GitManager : Gtk.Window {
 
 		term.set_emulation("xterm");
 		term.set_encoding("UTF-8");
+		
+		try {
+			pty = new Vte.Pty(Vte.PtyFlags.DEFAULT);
+		} catch (Error e) {
+			print(e.message + "\n");
+			Posix.exit(1);
+		}
 		term.pty_object = pty;
 		
-		var firstbtns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 2);
-		mainbox.pack_start(firstbtns, false, false, 0);
+		runCmd({"echo", " * - uses Operaion Entry \n Warning: running new commands terminates previous"});
 		
-			var getStatusBtn = new Gtk.Button.with_label("Status");
-			firstbtns.pack_start(getStatusBtn);
-			getStatusBtn.clicked.connect(() => {
-				runCmd({"echo", "----- GIT Status"});
-				runCmd({"git", "status"});
-				runCmd({"echo"});
-			});
+		opEntry = new Gtk.Entry();
+		opEntry.placeholder_text = "Operation Entry";
+		mainbox.pack_start(opEntry, false, false, 0);
+		
+		var firstbtns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
+		mainbox.pack_start(firstbtns, false, false, 0);
 			
 			var listFilesBtn = new Gtk.Button.with_label("List");
 			firstbtns.pack_start(listFilesBtn);
 			listFilesBtn.clicked.connect(() => {
-				runCmd({"echo", "----- List of Files"});
 				runCmd({"ls"});
-				runCmd({"echo"});
 			});
 			
-			var addBtn = new Gtk.Button.with_label("Add/Prepare");
+			var getStatusBtn = new Gtk.Button.with_label("Status");
+			firstbtns.pack_start(getStatusBtn);
+			getStatusBtn.clicked.connect(() => {
+				runCmd({"git", "status"});
+			});
+			
+			var addBtn = new Gtk.Button.with_label("Add/Prepare*");
 			firstbtns.pack_start(addBtn);
 			addBtn.clicked.connect(() => {
-				runCmd({"echo", "----- GIT Add"});
-				string files = "empty\n";
-				var dialog = new GetText("Files to add", "Files to add", files);
-				dialog.show_all();
-				print(files);
-				runCmd({"git", "add", files});
-				runCmd({"echo"});
+				string files = opEntry.text;
+				string[] gitadd = {"git", "add"};
+				string[] afiles = files.split(" ", 0);	
+				
+				opEntry.text = "";
+				runCmd(ClassMisc.str_arr_cmb(gitadd, afiles));
+			});
+			
+			var remBtn = new Gtk.Button.with_label("Remove*");
+			firstbtns.pack_start(remBtn);
+			remBtn.clicked.connect(() => {
+				string files = opEntry.text;
+				string[] gitrem = {"git", "rm"};
+				string[] afiles = files.split(" ", 0);	
+				
+				opEntry.text = "";
+				runCmd(ClassMisc.str_arr_cmb(gitrem, afiles));
+			});
+			
+		var secondbtns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
+		mainbox.pack_start(secondbtns, false, false, 0);
+			
+			var commitBtn = new Gtk.Button.with_label("Commit*");
+			secondbtns.pack_start(commitBtn);
+			commitBtn.clicked.connect(() => {
+				string text = opEntry.text;
+				string[] cmd = {"git", "commit", "-m", ("'" + text + "'")};
+				
+				opEntry.text = "";
+				runCmd(cmd);
+			});
+			
+			var pushBtn = new Gtk.Button.with_label("Push");
+			secondbtns.pack_start(pushBtn);
+			pushBtn.clicked.connect(() => {
+				runCmd({"git", "push"});
+			});
+			
+			var pullBtn = new Gtk.Button.with_label("Pull");
+			secondbtns.pack_start(pullBtn);
+			pullBtn.clicked.connect(() => {
+				runCmd({"git", "pull"});
+			});
+			
+			var shellBtn = new Gtk.Button.with_label("Run Shell");
+			secondbtns.pack_start(shellBtn);
+			shellBtn.clicked.connect(() => {
+				string shell = Vte.get_user_shell();
+				runCmd({shell});
 			});
 		
 	}

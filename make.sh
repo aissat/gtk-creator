@@ -25,6 +25,8 @@ OARGS="
 	--target-glib=2.36
 	-o exec
 	-g
+	--thread
+	--disable-warnings
 "
 
 #Script body
