@@ -2,13 +2,12 @@
 GTK+ Creator - open-source (free software) IDE for Vala and GTK3
 
 # Features:
-1. Built-in terminal (have some bugs)
-2. Documentation viewer
-3. Code Redactor (NOT FINISHED)
+1. Built-in Terminal (have some bugs)
+2. Documentation Viewer
+3. Code Editor (NOT FINISHED)
+4. GIT Client
 
 # TODO:
-* Finish git-client
-* Fix some terminal bugs
 * Finish core editor
 * GUI Redactor
 
