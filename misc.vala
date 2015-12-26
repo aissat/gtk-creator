@@ -1,4 +1,4 @@
-/* git.vala
+/* misc.vala
  *
  * Copyright (C) 2015 Nickolay Ilyushin <nickolay02@inbox.ru>
  *
