@@ -1,6 +1,6 @@
 /* editor.vala
  *
- * Copyright (C) 2015 Nickolay Ilyushin <nickolay02@inbox.ru>
+ * Copyright (C) 2015-2016 Nickolay Ilyushin <nickolay02@inbox.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/** Editor widget (NOT FINISHED) **/
-
+ 
+/** Editor (not finished) **/
 using Gtk;
 
 class Editor : Gtk.Box {
@@ -38,6 +37,7 @@ class Editor : Gtk.Box {
 	
 	public void addTab(string buf){
 		notebook.append_page(new Gtk.SourceView(), new Gtk.Label("test"));
+		notebook.reorder_tab(Gtk.DirectionType.TAB_FORWARD, true);
 	}
 }
 
