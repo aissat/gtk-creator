@@ -42,13 +42,13 @@ class GitManager : Gtk.Window {
 		topbar.show_close_button = true; //
 		this.set_titlebar(topbar); //Configure header bar
 		
-			var initBtn = new Gtk.Button.with_label("Init Repo");
+			var initBtn = new Gtk.Button.with_label("Init");
 			topbar.pack_start(initBtn);
 			initBtn.clicked.connect(() => {
 				runCmd({"git", "init"});
 			});
 			
-			var raddBtn = new Gtk.Button.with_label("Add Rem. Repo*");
+			var raddBtn = new Gtk.Button.with_label("Add/Rem.*");
 			topbar.pack_start(raddBtn);
 			raddBtn.clicked.connect(() => {
 				string rname = ClassMisc.random.to_string();
@@ -86,7 +86,7 @@ class GitManager : Gtk.Window {
 		mainbox.pack_start(opEntry, false, false, 0);
 		
 		var firstbtns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-		mainbox.pack_start(firstbtns, false, false, 0);
+		mainbox.pack_start(firstbtns, false, false, 3);
 			
 			var listFilesBtn = new Gtk.Button.with_label("List");
 			firstbtns.pack_start(listFilesBtn);
@@ -123,7 +123,7 @@ class GitManager : Gtk.Window {
 			});
 			
 		var secondbtns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-		mainbox.pack_start(secondbtns, false, false, 0);
+		mainbox.pack_start(secondbtns, false, false, 3);
 			
 			var commitBtn = new Gtk.Button.with_label("Commit*");
 			secondbtns.pack_start(commitBtn);

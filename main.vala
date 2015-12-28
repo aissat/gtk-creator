@@ -20,22 +20,25 @@
 using Gtk;
 
 class ClassMain : GLib.Object {
-	public static Gtk.Application app;
 	public static WWindow mainWindow;
 	
 	public static string[] arguments;
 	public static Gdk.Pixbuf logo;
+	
 	public const string name = "GTK+ Creator";
-	
 	public const string version = "(dev version)";
-	public static bool print_version = false;
 	
-	public static bool use_dir = false;
+	public static bool print_version = false;
+	public static bool use_git = false; 
+	public static string term_args = "";
 	public static string dir = "";
 	
 	public const GLib.OptionEntry[] poss_options = {
 		// --version
 		{ "version", 'v', 0, OptionArg.NONE, ref print_version, "Display version", null},
+		{ "git", 'g', 0, OptionArg.NONE, ref use_git, "Start git-client", null },
+		{ "term", 't', 0, OptionArg.STRING, ref term_args, "Start small terminal with command CMD", "CMD" },
+		{ "dir", 'd', 0, OptionArg.STRING, ref dir, "Start at directory DIR", "DIR" },
 		
 		{ null }
 	};
@@ -55,32 +58,21 @@ class ClassMain : GLib.Object {
 			Posix.exit(1);
 		}
 		
+		GLib.Thread<int> thr_randomizer = new GLib.Thread<int>("randomizer", ClassMisc.randomizer);
+		
 		if(print_version){ 
 			print(@"Name: $name \nVersion: $version\n"); 
 			print("Copyright (C) 2015-2016 Nickolay Ilyushin <nickolay02@inbox.ru>\n");
 			print("This is free software, and you are welcome to redistribute it under GNU GPLv3 license\n");
 			return 0; 
-		}
-		
-		GLib.Thread<int> thr_randomizer = new GLib.Thread<int>("randomizer", ClassMisc.randomizer);
-		
-		app = new Gtk.Application("gtk-creator", GLib.ApplicationFlags.FLAGS_NONE);
-		
-		if(args[1][0] == '/'){
-			use_dir = true;
-			dir = args[1];
-			print(@"$dir\n");
-		}
-		
-		if(args[1] == "-t"){
-			var runTerm = new RunTerm(800, 600, args[2]);
-			runTerm.show_all();
-		} else if(args[1] == "-g"){
+		} else if(use_git){
 			var gitManager = new GitManager(800, 600);
 			gitManager.show_all();
+		} else if(term_args != ""){
+			var runTerm = new RunTerm(800, 600, term_args);
+			runTerm.show_all();
 		} else {
 			mainWindow = new WWindow(1024, 700, args[0]);
-			app.add_window(mainWindow);
 			mainWindow.show_all();
 		}
 		
