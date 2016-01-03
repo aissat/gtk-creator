@@ -30,7 +30,7 @@ class ClassMain : GLib.Object {
 	
 	public static bool print_version = false;
 	public static bool use_git = false; 
-	public static string term_args = "";
+	public static string? term_args = null;
 	public static string dir = "";
 	
 	public const GLib.OptionEntry[] poss_options = {
@@ -45,10 +45,11 @@ class ClassMain : GLib.Object {
 	
 	public static int main(string[] args){
 		arguments = args;
-		try {
-			logo = new Gdk.Pixbuf.from_file_at_scale("/usr/share/icons/gtkcreator.png", 128, 128, true);
-			Gtk.init_with_args(ref args, null, poss_options, null);
-			
+
+		Gtk.init_with_args(ref args, null, poss_options, null);
+		logo = new Gdk.Pixbuf.from_file_at_scale("/usr/share/icons/gtkcreator.png", 128, 128, true);
+
+		try {			
 			var opt_context = new OptionContext("");
 			opt_context.set_help_enabled(true);
 			opt_context.add_main_entries(poss_options, null);
@@ -68,7 +69,7 @@ class ClassMain : GLib.Object {
 		} else if(use_git){
 			var gitManager = new GitManager(800, 600);
 			gitManager.show_all();
-		} else if(term_args != ""){
+		} else if(term_args != null){
 			var runTerm = new RunTerm(800, 600, term_args);
 			runTerm.show_all();
 		} else {
