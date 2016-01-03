@@ -48,7 +48,7 @@ class GitManager : Gtk.Window {
 				runCmd({"git", "init"});
 			});
 			
-			var raddBtn = new Gtk.Button.with_label("Add/Rem.*");
+			var raddBtn = new Gtk.Button.with_label("Add Remote*");
 			topbar.pack_start(raddBtn);
 			raddBtn.clicked.connect(() => {
 				string rname = ClassMisc.random.to_string();
