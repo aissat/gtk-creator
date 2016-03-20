@@ -34,19 +34,19 @@ class Term : Gtk.ScrolledWindow {
 		this.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 		
 		shell = Vte.get_user_shell();
-		term.set_emulation("xterm");
+		//term.set_emulation("xterm");
 		term.set_encoding("UTF-8");
 		
 		try {
-			pty = new Vte.Pty(Vte.PtyFlags.DEFAULT);
+			pty = new Vte.Pty.sync(Vte.PtyFlags.DEFAULT);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);
 		}
-		term.pty_object = pty;
+		term.pty = pty;
 		
 		try {
-			term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
+			term.spawn_sync(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);
@@ -55,7 +55,7 @@ class Term : Gtk.ScrolledWindow {
 		term.child_exited.connect(() => {
 			try {
 				term.reset(true, true);
-				term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
+				term.spawn_sync(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
 			} catch (Error e) {
 				print(e.message + "\n");
 				Posix.exit(1);

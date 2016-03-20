@@ -68,16 +68,16 @@ class GitManager : Gtk.Window {
 		term = new Vte.Terminal();
 		scroll.add(term);
 
-		term.set_emulation("xterm");
+		//term.set_emulation("xterm");
 		term.set_encoding("UTF-8");
 		
 		try {
-			pty = new Vte.Pty(Vte.PtyFlags.DEFAULT);
+			pty = new Vte.Pty.sync(Vte.PtyFlags.DEFAULT);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);
 		}
-		term.pty_object = pty;
+		term.pty = pty;
 		
 		runCmd({"echo", " * - uses Operaion Entry \n Warning: running new commands terminates previous"});
 		
@@ -158,7 +158,7 @@ class GitManager : Gtk.Window {
 	
 	public void runCmd(string[] cmd){
 		try {
-			term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", (cmd), null, SpawnFlags.SEARCH_PATH, null, out child_pid);
+			term.spawn_sync(Vte.PtyFlags.DEFAULT, "~/", (cmd), null, SpawnFlags.SEARCH_PATH, null, out child_pid);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);

@@ -42,7 +42,7 @@ class RunTerm : Gtk.Window {
 		this.set_titlebar(topbar); //Configure header bar
 		
 		try {
-			pty = new Vte.Pty(Vte.PtyFlags.DEFAULT);
+			pty = new Vte.Pty.sync(Vte.PtyFlags.DEFAULT);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);
@@ -55,12 +55,12 @@ class RunTerm : Gtk.Window {
 		scroll.add(term);
 		
 		shell = cmd;
-		term.set_emulation("xterm");
+		//term.set_emulation("xterm");
 		term.set_encoding("UTF-8");
-		term.pty_object = pty;
+		term.pty= pty;
 		
 		try {
-			term.fork_command_full(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
+			term.spawn_sync(Vte.PtyFlags.DEFAULT, "~/", { shell }, null, SpawnFlags.SEARCH_PATH, null, out child_pid);
 		} catch (Error e) {
 			print(e.message + "\n");
 			Posix.exit(1);

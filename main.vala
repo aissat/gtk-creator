@@ -47,7 +47,7 @@ class ClassMain : GLib.Object {
 		arguments = args;
 
 		Gtk.init_with_args(ref args, null, poss_options, null);
-		logo = new Gdk.Pixbuf.from_file_at_scale("/usr/share/icons/gtkcreator.png", 128, 128, true);
+		//logo = new Gdk.Pixbuf.from_file_at_scale("/usr/share/icons/gtkcreator.png", 128, 128, true);
 
 		try {			
 			var opt_context = new OptionContext("");
