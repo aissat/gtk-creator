@@ -14,7 +14,7 @@ GTK+ Creator - open-source (free software) IDE for Vala and GTK3
 # Depends on:
 * valac-0.30+
 * gdk-3.0+
-* vte-2.90+
+* vte-2.91+
 * webkit2gtk-4.0+
 * gio-2.0+
 * gtksourceview-3.0+
