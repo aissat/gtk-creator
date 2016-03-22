@@ -26,13 +26,13 @@ class About : Gtk.AboutDialog {
 		this.set_transient_for(win);
 		this.set_modal(true);
 		
-		this.artists = {"Nickolay Ilyushin (UI)", "TyanNN (icon)"};
+		this.artists = {"Nickolay Ilyushin (UI)", "Vlad Merk (icon)"};
 		this.authors = {"Nickolay Ilyushin (all code)"};
 		this.documenters = null;
 		this.translator_credits = null;
 		
 		this.program_name = ClassMain.name;
-		this.comments = "GTK+ IDE for Vala language with many features";
+		this.comments = "GTK+ IDE for Vala language with many features - Work In Progress";
 		this.copyright = "Copyright © 2016 GTK+ Creator authors and designers";
 		this.version = ClassMain.version;
 		
